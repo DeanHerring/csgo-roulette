@@ -1,7 +1,7 @@
 <template>
   <ul class="debil-list" ref="band">
     <roulette-item
-      v-for="(item, index) in getAwardsList()"
+      v-for="(item, index) in awards"
       :key="index + 1"
       :item="{ data: item, index: index + 1 }"
     ></roulette-item>
@@ -16,20 +16,25 @@ import RouletteItem from './RouletteItem.vue';
 import Utils from '@/utils/Utils.js';
 import shuffle from 'lodash.shuffle';
 
+console.log('asdjasndjk');
+
 export default {
   components: { RouletteItem },
-  methods: {
-    getAwardsList() {
-      const utils = new Utils();
-      const awards = utils.getAwardsList(config.BAND_LENGTH);
-      const shuffledAwards = shuffle(awards);
-
-      return shuffledAwards;
-    },
+  data() {
+    return {
+      awards: undefined,
+    };
   },
   mounted() {
     const store = useRouletteStore();
+    const utils = new Utils();
+    const awards = utils.getAwardsList(config.BAND_LENGTH);
+    const shuffledAwards = shuffle(awards);
+
+    store.setAwards(shuffledAwards);
     store.setBandRef(this.$refs.band);
+
+    this.awards = shuffledAwards;
   },
 };
 </script>
@@ -38,7 +43,6 @@ export default {
 @import '@/styles/vars.scss';
 .debil-list {
   display: flex;
-  transition: all 3s;
   margin-left: -$card-width;
 }
 </style>

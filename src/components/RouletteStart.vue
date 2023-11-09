@@ -11,7 +11,13 @@ export default {
   methods: {
     spin() {
       const store = useRouletteStore();
-      store.doSpin();
+
+      store.doSpin().then((result) => {
+        if (result.isEnd) {
+          store.finish();
+          store.setShowRouletteAwards(true);
+        }
+      });
     },
   },
 };

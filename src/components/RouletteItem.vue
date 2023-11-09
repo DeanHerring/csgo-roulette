@@ -1,5 +1,8 @@
 <template>
-  <li class="debil-item" :class="item.data.color">Case #{{ item.index }}</li>
+  <li class="debil-item" :class="item.data.color">
+    <h1>Case #{{ item.index }}</h1>
+    <h3>${{ item.data.price }}</h3>
+  </li>
 </template>
 
 <script>
@@ -19,7 +22,26 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid red;
+  h1 {
+    font-size: 30px;
+  }
+  h3 {
+    margin-top: 20px;
+    font-size: 25px;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 100%;
+    background-color: blue;
+  }
   &.white {
     background-color: #fff;
     color: #000;
