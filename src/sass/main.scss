@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,700&family=Metal+Mania&display=swap');
+
+@import './vars.scss';
+
+body,
+html,
+#wrapper {
+  width: 100%;
+  background-image: url('../images/background.svg');
+}
+
+// History
+.history {
+  width: 100%;
+  height: 100px;
+  &-list {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    height: 100%;
+    overflow: hidden;
+    .history-item {
+      width: calc(100% + 21px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $blue-1;
+      clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+      &:first-child {
+        clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+        color: #fff;
+      }
+      &.rarity {
+        &-white {
+          background: linear-gradient(180deg, $blue-1 60%, $white-1 175%);
+        }
+        &-green {
+          background: linear-gradient(180deg, $blue-1 60%, $green-1 175%);
+        }
+        &-blue {
+          background: linear-gradient(180deg, $blue-1 60%, $blue-2 175%);
+        }
+        &-purpure {
+          background: linear-gradient(180deg, $blue-1 60%, $purpure-1 175%);
+        }
+        &-red {
+          background: linear-gradient(180deg, $blue-1 60%, $red-1 175%);
+        }
+      }
+      img {
+        width: 100px;
+      }
+    }
+  }
+}
+
+// Container
+.container {
+  width: 1300px;
+  margin: 0 auto;
+  max-width: 90%;
+}
+
+// roulette
+.roulette {
+  width: 1300px;
+  margin: 50px 0;
+  &-header {
+    text-align: center;
+    color: $white-2;
+    font: 50px $Metal;
+  }
+  &-wrapper {
+    width: 100%;
+    border-radius: 10px;
+    background-color: $blue-1;
+    position: relative;
+    margin-top: 25px;
+    overflow: hidden;
+    border: 2px solid $blue-1;
+    .roulette-container {
+      width: $card-width * 32;
+      &:after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-shadow: inset 0 0 25px 5px $blue-3;
+      }
+      .roulette-arrows {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        &__top,
+        &__bottom {
+          border-left: 20px solid transparent;
+          border-right: 20px solid transparent;
+          border-bottom: 20px solid $yellow-1;
+        }
+        &__top {
+          transform: rotate(180deg);
+        }
+        &__bottom {
+          position: absolute;
+          bottom: 0;
+        }
+      }
+      .roulette-list {
+        display: flex;
+        .roulette-item {
+          width: $card-width;
+          height: calc(328px - 50px);
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding: 25px 0;
+          &.rarity {
+            &-white {
+              background: linear-gradient(-210deg, $blue-1 50%, $white-1 150%);
+            }
+            &-green {
+              background: linear-gradient(-210deg, $blue-1 50%, $green-1 150%);
+            }
+            &-blue {
+              background: linear-gradient(-210deg, $blue-1 50%, $blue-2 150%);
+            }
+            &-purpure {
+              background: linear-gradient(-210deg, $blue-1 50%, $purpure-1 150%);
+            }
+            &-red {
+              background: linear-gradient(-210deg, $blue-1 50%, $red-1 150%);
+            }
+          }
+          &:first-child {
+            border-radius: 5px 0 0 5px;
+          }
+          &__price {
+            visibility: hidden;
+            h3 {
+              font: 700 16px $Lato;
+              color: $white-2;
+            }
+          }
+          &__weapon {
+            img {
+              width: 200px;
+            }
+          }
+          &__title {
+            h1 {
+              font: 700 16px $Lato;
+              color: $white-2;
+            }
+            h3 {
+              margin-top: 10px;
+              font: 400 15px $Lato;
+              color: $blue-4;
+            }
+          }
+        }
+      }
+    }
+  }
+  &-spin {
+    text-align: center;
+    margin-top: 25px;
+    button {
+      font: 700 25px $Lato;
+      color: $white-2;
+      background: none;
+      border: 0;
+      transition: all 0.2s;
+      cursor: pointer;
+      &:hover {
+        color: $yellow-1;
+      }
+    }
+  }
+}
+
+.awards {
+  width: 1300px;
+  margin-bottom: 50px;
+  &-header {
+    h1 {
+      font: 700 21px $Lato;
+      color: $white-2;
+    }
+  }
+  &-list {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+    .award {
+      background-color: $blue-1;
+      height: calc(328px - 40px);
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 15px 5px rgba($blue-1, 0.11);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      &.rarity {
+        &-white {
+          background: linear-gradient(-210deg, $blue-1 50%, $white-1 150%);
+        }
+        &-green {
+          background: linear-gradient(-210deg, $blue-1 50%, $green-1 150%);
+        }
+        &-blue {
+          background: linear-gradient(-210deg, $blue-1 50%, $blue-2 150%);
+        }
+        &-purpure {
+          background: linear-gradient(-210deg, $blue-1 50%, $purpure-1 150%);
+        }
+        &-red {
+          background: linear-gradient(-210deg, $blue-1 50%, $red-1 150%);
+        }
+      }
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        h3 {
+          font: italic 700 14px $Lato;
+          color: $white-2;
+        }
+      }
+      &-weapon {
+        img {
+          width: 200px;
+        }
+      }
+      &-title {
+        h1 {
+          font: 700 16px $Lato;
+          color: $white-2;
+        }
+        h3 {
+          font: 400 15px $Lato;
+          color: $blue-4;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
