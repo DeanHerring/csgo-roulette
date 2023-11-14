@@ -10,14 +10,44 @@ import { useRouletteStore } from '@/stores/useRouletteStore';
 export default {
   methods: {
     spin() {
-      const store = useRouletteStore();
+      console.log('[spin]: Start Game');
 
-      store.doSpin().then((result) => {
-        if (result.isEnd) {
-          store.finish();
-          store.setShowRouletteAwards(true);
-        }
-      });
+      const store = useRouletteStore();
+      const isFirstSpin = store.isFirstSpin;
+
+      if (isFirstSpin) {
+        console.log('[spin]: First Spin');
+
+        store.startSpin().then((result) => {
+          if (result.isEnd) {
+            store.finishSpin();
+            store.displayAward();
+          }
+        });
+      } else {
+        console.log('[spin]: Not First Spin');
+
+        store.hideAward();
+        store.trimStripe();
+        store.updateStripe();
+        store.animateClear();
+
+        setTimeout(() => {
+          store.startSpin().then((result) => {
+            if (result.isEnd) {
+              store.finishSpin();
+              store.displayAward();
+            }
+          });
+        }, 100);
+      }
+
+      store.incrementSpin();
+
+      /**
+       * isFirstSpin (true) = startSpin(), finishSpin(), displayAward()
+       * isFirstSpin (false) = hideAward(), trimStripe(), updateStripe()
+       */
     },
   },
 };
