@@ -1,7 +1,8 @@
 <template>
   <ul class="history-list">
     <history-header></history-header>
-    <history-weapon></history-weapon>
+
+    <history-weapon v-for="weapon in weapons" :weapon="weapon"></history-weapon>
   </ul>
 </template>
 
@@ -11,6 +12,21 @@ import HistoryHeader from './HistoryHeader.vue';
 
 export default {
   components: { HistoryWeapon, HistoryHeader },
+  data() {
+    return {
+      weapons: [],
+    };
+  },
+  methods: {
+    importWeapons() {
+      const weaponSprites = import.meta.glob('@/sprites/spectra/*.png');
+
+      this.weapons = Object.keys(weaponSprites);
+    },
+  },
+  mounted() {
+    this.importWeapons();
+  },
 };
 </script>
 

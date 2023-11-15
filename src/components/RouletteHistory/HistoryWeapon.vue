@@ -1,26 +1,12 @@
 <template>
-  <li v-for="weapon in weapons" class="history-item rarity-red">
+  <li class="history-item rarity-red">
     <img :src="weapon" alt="item" />
   </li>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      weapons: [],
-    };
-  },
-  methods: {
-    importWeapons() {
-      const weaponSprites = import.meta.glob('@/sprites/spectra/*.png');
-
-      this.weapons = Object.keys(weaponSprites);
-    },
-  },
-  mounted() {
-    this.importWeapons();
-  },
+  props: ['weapon'],
 };
 </script>
 

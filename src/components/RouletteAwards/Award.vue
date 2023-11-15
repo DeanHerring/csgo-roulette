@@ -1,27 +1,24 @@
 <template>
   <li class="award rarity-white">
     <header class="award-header">
-      <h3>$0.01</h3>
-      <h3>91.22%</h3>
+      <h3>${{ award.price }}</h3>
+      <h3>{{ award.drop_rate }}%</h3>
     </header>
     <div class="award-weapon">
-      <img :src="image" alt="weapon" />
+      <img :src="`http://localhost:5173/src/sprites/spectra/${award.sprite}`" alt="weapon" />
     </div>
     <div class="award-title">
-      <h1>UMP-45</h1>
-      <h3>Exposure</h3>
+      <h1>{{ award.skin }}</h1>
+      <h3>{{ award.name }}</h3>
     </div>
   </li>
 </template>
 
 <script>
-import image from '@/sprites/spectra/1.png';
-
 export default {
+  props: ['award'],
   data() {
-    return {
-      image,
-    };
+    return {};
   },
 };
 </script>

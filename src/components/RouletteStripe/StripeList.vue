@@ -13,7 +13,11 @@
 </template>
 
 <script>
+// import { useRouletteStore } from '@/stores/useRouletteStore';
+
 import StripeWeapon from './StripeWeapon.vue';
+
+// import axios from 'axios';
 
 export default {
   components: { StripeWeapon },
