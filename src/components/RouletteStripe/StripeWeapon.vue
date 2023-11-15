@@ -1,27 +1,31 @@
 <template>
-  <li class="roulette-item rarity-white">
+  <li
+    class="roulette-item"
+    :class="{
+      'rarity-white': weapon.rarity === 'white',
+      'rarity-green': weapon.rarity === 'green',
+      'rarity-blue': weapon.rarity === 'blue',
+      'rarity-purpure': weapon.rarity === 'purpure',
+      'rarity-red': weapon.rarity === 'red',
+      'rarity-gold': weapon.rarity === 'gold',
+    }"
+  >
     <div class="roulette-item__price">
-      <h3>$24.91</h3>
+      <h3>${{ weapon.price }}</h3>
     </div>
     <div class="roulette-item__weapon">
-      <img :src="image" alt="weapon" />
+      <img :src="`http://localhost:5173/src/sprites/spectra/${weapon.sprite}`" alt="weapon" />
     </div>
     <div class="roulette-item__title">
-      <h1>Colony IV</h1>
-      <h3>SG 553</h3>
+      <h1>{{ weapon.skin }}</h1>
+      <h3>{{ weapon.name }}</h3>
     </div>
   </li>
 </template>
 
 <script>
-import image from '@/sprites/spectra/14.png';
-
 export default {
-  data() {
-    return {
-      image,
-    };
-  },
+  props: ['weapon'],
 };
 </script>
 

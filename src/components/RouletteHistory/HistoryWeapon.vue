@@ -41,6 +41,9 @@ export default {
     &-red {
       background: linear-gradient(180deg, $blue-1 60%, $red-1 175%);
     }
+    &-gold {
+      background: linear-gradient(180deg, $blue-1 60%, $yellow-1 175%);
+    }
   }
   img {
     width: 100px;

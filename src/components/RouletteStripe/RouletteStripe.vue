@@ -40,6 +40,7 @@ export default {
     border: 2px solid $blue-1;
     .roulette-container {
       width: $card-width * 32;
+      margin-left: -$card-width;
       &:after {
         content: '';
         width: 100%;
