@@ -1,45 +1,25 @@
 <template>
-  <div class="debil-wrapper">
-    <roulette-award></roulette-award>
-
-    <div class="debil">
-      <roulette-line></roulette-line>
-      <roulette-list></roulette-list>
-    </div>
-
-    <roulette-start></roulette-start>
-  </div>
+  <roulette-history></roulette-history>
+  <Container>
+    <roulette-stripe></roulette-stripe>
+    <roulette-awards></roulette-awards>
+  </Container>
 </template>
 
 <script>
-import RouletteList from './RouletteList.vue';
-import RouletteStart from './RouletteStart.vue';
-import RouletteLine from './RouletteLine.vue';
-import RouletteAward from './RouletteAward.vue';
+import RouletteHistory from './RouletteHistory/RouletteHistory.vue';
+import RouletteStripe from './RouletteStripe/RouletteStripe.vue';
+import RouletteAwards from './RouletteAwards/RouletteAwards.vue';
+
+import Container from './Other/Container.vue';
 
 export default {
-  components: { RouletteList, RouletteStart, RouletteLine, RouletteAward },
+  components: { RouletteHistory, RouletteStripe, RouletteAwards, Container },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/vars.scss';
-
-.debil-wrapper {
+.roulette-app {
   width: 100%;
-  min-height: 100vh;
-  background-color: #111;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-
-  .debil {
-    width: $card-width * 5;
-    max-width: 90%;
-    background-color: #555;
-    position: relative;
-    overflow: hidden;
-  }
 }
 </style>

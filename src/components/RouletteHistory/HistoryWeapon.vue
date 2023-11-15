@@ -1,0 +1,63 @@
+<template>
+  <li v-for="weapon in weapons" class="history-item rarity-red">
+    <img :src="weapon" alt="item" />
+  </li>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      weapons: [],
+    };
+  },
+  methods: {
+    importWeapons() {
+      const weaponSprites = import.meta.glob('@/sprites/spectra/*.png');
+
+      this.weapons = Object.keys(weaponSprites);
+    },
+  },
+  mounted() {
+    this.importWeapons();
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '@/styles/vars.scss';
+
+.history-item {
+  width: $history-card-width;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $blue-1;
+  clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+  margin-left: -22px;
+  &:first-child {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+    color: #fff;
+  }
+  &.rarity {
+    &-white {
+      background: linear-gradient(180deg, $blue-1 60%, $white-1 175%);
+    }
+    &-green {
+      background: linear-gradient(180deg, $blue-1 60%, $green-1 175%);
+    }
+    &-blue {
+      background: linear-gradient(180deg, $blue-1 60%, $blue-2 175%);
+    }
+    &-purpure {
+      background: linear-gradient(180deg, $blue-1 60%, $purpure-1 175%);
+    }
+    &-red {
+      background: linear-gradient(180deg, $blue-1 60%, $red-1 175%);
+    }
+  }
+  img {
+    width: 100px;
+  }
+}
+</style>

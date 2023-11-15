@@ -1,0 +1,9 @@
+@import '@/styles/fonts.scss';
+@import '@/styles/reset.scss';
+@import '@/styles/vars.scss';
+
+body,
+html {
+  background-image: url('@/sprites/background.svg');
+  background-attachment: fixed;
+}
