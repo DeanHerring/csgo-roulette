@@ -1,5 +1,15 @@
 <template>
-  <li class="award rarity-white">
+  <li
+    class="award"
+    :class="{
+      'rarity-white': award.rarity === 'white',
+      'rarity-green': award.rarity === 'green',
+      'rarity-blue': award.rarity === 'blue',
+      'rarity-purpure': award.rarity === 'purpure',
+      'rarity-red': award.rarity === 'red',
+      'rarity-gold': award.rarity === 'gold',
+    }"
+  >
     <header class="award-header">
       <h3>${{ award.price }}</h3>
       <h3>{{ award.drop_rate }}%</h3>
@@ -50,6 +60,9 @@ export default {
     }
     &-red {
       background: linear-gradient(-210deg, $blue-1 50%, $red-1 150%);
+    }
+    &-gold {
+      background: linear-gradient(-210deg, $blue-1 50%, $yellow-1 150%);
     }
   }
   &-header {
