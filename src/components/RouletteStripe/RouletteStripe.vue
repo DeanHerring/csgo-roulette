@@ -3,7 +3,7 @@
     <stripe-header></stripe-header>
 
     <div class="roulette-wrapper">
-      <div class="roulette-container">
+      <div class="roulette-container" ref="stripe">
         <stripe-arrows></stripe-arrows>
         <stripe-list></stripe-list>
       </div>
@@ -19,8 +19,15 @@ import StripeSpin from './StripeSpin.vue';
 import StripeArrows from './StripeArrows.vue';
 import StripeList from './StripeList.vue';
 
+import { useRouletteStore } from '@/stores/useRouletteStore.js';
+
 export default {
   components: { StripeHeader, StripeSpin, StripeArrows, StripeList },
+  mounted() {
+    const store = useRouletteStore();
+
+    store.setStripeRef(this.$refs.stripe);
+  },
 };
 </script>
 

@@ -43,8 +43,6 @@ export default {
     const awards = await this.loadAwards();
 
     awards.ok ? store.setAwards(awards.data) : console.log('Произошла ошибка во время загрузки данных.');
-
-    store.setBandRef(this.$refs.band);
   },
 };
 </script>

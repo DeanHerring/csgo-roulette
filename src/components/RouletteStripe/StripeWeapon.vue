@@ -10,7 +10,7 @@
       'rarity-gold': weapon.rarity === 'gold',
     }"
   >
-    <div class="roulette-item__price">
+    <div class="roulette-item__price" :class="{ show: getDisplayAwardState }">
       <h3>${{ weapon.price }}</h3>
     </div>
     <div class="roulette-item__weapon">
@@ -24,8 +24,17 @@
 </template>
 
 <script>
+import { useRouletteStore } from '../../stores/useRouletteStore.js';
+
 export default {
   props: ['weapon'],
+  computed: {
+    getDisplayAwardState() {
+      const store = useRouletteStore();
+
+      return store.isDisplayAward;
+    },
+  },
 };
 </script>
 
@@ -62,6 +71,9 @@ export default {
   }
   &__price {
     visibility: hidden;
+    &.show {
+      visibility: visible;
+    }
     h3 {
       font: 700 16px $Lato;
       color: $white-2;

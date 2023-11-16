@@ -1,23 +1,24 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
+const CARD_WIDTH = 260;
+const DURATION = 4.4;
+
 export const useRouletteStore = defineStore('roulette', {
   state: () => ({
-    bandRef: null,
+    stripeRef: null,
     awards: null,
-    isShowRouletteAward: false,
+    isDisplayAward: false,
     award: null,
     countSpins: 0,
   }),
   getters: {
-    rouletteAwardStatus: (state) => state.isShowRouletteAward,
-    awardAmount: (state) => state.award,
     isFirstSpin: (state) => state.countSpins === 0,
   },
   actions: {
     // setters
-    setBandRef(ref) {
-      this.bandRef = ref;
+    setStripeRef(ref) {
+      this.stripeRef = ref;
     },
     setAwards(awards) {
       this.awards = awards;
@@ -35,21 +36,30 @@ export const useRouletteStore = defineStore('roulette', {
     animateClear() {
       console.log('[animateClear]: Очистка анимации');
 
-      this.bandRef.style.marginLeft = '-240px';
+      this.stripeRef.style.marginLeft = `-${CARD_WIDTH}px`;
     },
     animateTo(marginValue, duration) {
       console.log('[animateTo]: Анимация прокрутки');
 
-      this.bandRef.style.transition = duration ? `all ${duration}s` : 'none';
-      this.bandRef.style.marginLeft = `-${marginValue}px`;
+      this.stripeRef.style.transition = duration ? `all ${duration}s` : 'none';
+      this.stripeRef.style.marginLeft = `-${marginValue}px`;
+    },
+    playSound(sound) {
+      const audio = new Audio(sound);
+
+      audio.onloadedmetadata = () => {
+        console.log(`Duration: ${audio.duration}`);
+      };
+
+      audio.play();
     },
     startSpin() {
       console.log('[startSpin]: Начинаю прокрутку');
 
       return new Promise((resolve) => {
-        this.animateTo(240 * 26, 2);
+        this.animateTo(CARD_WIDTH * 26, DURATION);
 
-        setTimeout(() => resolve({ isEnd: true }), 2 * 1000);
+        setTimeout(() => resolve({ isEnd: true }), DURATION * 1000);
       });
     },
     finishSpin() {
@@ -62,12 +72,12 @@ export const useRouletteStore = defineStore('roulette', {
     displayAward() {
       console.log('[displayAward]: Показать награду');
 
-      this.isShowRouletteAward = true;
+      this.isDisplayAward = true;
     },
     hideAward() {
       console.log('[hideAward]: Скрыть награду');
 
-      this.isShowRouletteAward = false;
+      this.isDisplayAward = false;
     },
     trimStripe() {
       console.log('[trimStripe]: Обрезать ленту');
@@ -75,7 +85,7 @@ export const useRouletteStore = defineStore('roulette', {
       const trimAwards = this.awards.slice(25);
 
       this.awards = trimAwards;
-      this.animateTo(240, 0);
+      this.animateTo(CARD_WIDTH, 0);
     },
     updateStripe() {
       console.log('[updateStripe]: Обновить ленту к следующему спину');
