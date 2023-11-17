@@ -14,7 +14,7 @@
       <h3>${{ weapon.price }}</h3>
     </div>
     <div class="roulette-item__weapon">
-      <img :src="`http://localhost:5173/src/sprites/spectra/${weapon.sprite}`" alt="weapon" />
+      <img :src="`http://localhost:5173/src/assets/cases/spectra/${weapon.sprite}`" alt="weapon" />
     </div>
     <div class="roulette-item__title">
       <h1>{{ weapon.skin }}</h1>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { useRouletteStore } from '../../stores/useRouletteStore.js';
+import { useRouletteStore } from '@/stores/useRouletteStore.js';
 
 export default {
   props: ['weapon'],

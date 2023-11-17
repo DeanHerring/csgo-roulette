@@ -7,7 +7,7 @@
 <script>
 import Award from './Award.vue';
 
-import axios from 'axios';
+import { useLoadThings } from '@/helpers/useLoadThings.js';
 
 export default {
   data() {
@@ -16,24 +16,15 @@ export default {
     };
   },
   components: { Award },
-  methods: {
-    async getDefaultAwards() {
-      const responce = await axios.get('http://localhost:3001/api/v1/getDefaultAwards');
-      const { status, data } = responce;
-
-      if (status !== 200 || !data.ok) {
-        throw new Error({ ok: data.ok, error: 'Какая-то срака.' });
-      }
-
-      const parsedAwards = JSON.parse(data.data);
-
-      return parsedAwards;
-    },
-  },
   async mounted() {
-    const awards = await this.getDefaultAwards();
+    const things = await useLoadThings({
+      url: 'http://localhost:3001/api/v1/getDefaultAwards',
+      method: 'GET',
+    });
 
-    this.awards = awards;
+    if (things) {
+      this.awards = things;
+    }
   },
 };
 </script>

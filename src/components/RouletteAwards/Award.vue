@@ -15,7 +15,7 @@
       <h3>{{ award.drop_rate }}%</h3>
     </header>
     <div class="award-weapon">
-      <img :src="`http://localhost:5173/src/sprites/spectra/${award.sprite}`" alt="weapon" />
+      <img :src="`http://localhost:5173/src/assets/cases/spectra/${award.sprite}`" alt="weapon" />
     </div>
     <div class="award-title">
       <h1>{{ award.skin }}</h1>
@@ -27,9 +27,6 @@
 <script>
 export default {
   props: ['award'],
-  data() {
-    return {};
-  },
 };
 </script>
 

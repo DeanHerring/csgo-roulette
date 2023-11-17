@@ -1,73 +1,24 @@
 <template>
   <div class="roulette-spin">
-    <button @click="spin" ref="spin">Spin</button>
+    <button @click="play" ref="spin">Spin</button>
   </div>
 </template>
 
 <script>
 import { useRouletteStore } from '@/stores/useRouletteStore.js';
-
-// Sounds
-import endSound from '@/sounds/end.mp3';
-import spinSound from '@/sounds/spin.mp3';
-import startSound from '@/sounds/start.mp3';
+import { Utils } from '@/utils/Utils.js';
 
 export default {
   methods: {
-    spin() {
-      console.log('[spin]: Start Game');
-
+    play() {
       this.$refs.spin.disabled = true;
 
       const store = useRouletteStore();
       const isFirstSpin = store.isFirstSpin;
-      const DELAY_BEFORE_NEXT_SPIN = 1.2;
 
-      if (isFirstSpin) {
-        console.log('[spin]: First Spin');
-
-        store.playSound(spinSound);
-        store.startSpin().then((result) => {
-          if (result.isEnd) {
-            setTimeout(() => {
-              this.$refs.spin.disabled = false;
-            }, DELAY_BEFORE_NEXT_SPIN * 1000);
-
-            store.playSound(endSound);
-            store.finishSpin();
-            store.displayAward();
-          }
-        });
-      } else {
-        console.log('[spin]: Not First Spin');
-
-        store.hideAward();
-        store.trimStripe();
-        store.updateStripe();
-        store.animateClear();
-        store.playSound(spinSound);
-
-        setTimeout(() => {
-          store.startSpin().then((result) => {
-            if (result.isEnd) {
-              setTimeout(() => {
-                this.$refs.spin.disabled = false;
-              }, DELAY_BEFORE_NEXT_SPIN * 1000);
-
-              store.playSound(endSound);
-              store.finishSpin();
-              store.displayAward();
-            }
-          });
-        }, 100);
-      }
+      isFirstSpin ? Utils.roulette.spin(this.$refs.spin) : Utils.roulette.respin(this.$refs.spin);
 
       store.incrementSpin();
-
-      /**
-       * isFirstSpin (true) = startSpin(), finishSpin(), displayAward()
-       * isFirstSpin (false) = hideAward(), trimStripe(), updateStripe()
-       */
     },
   },
 };

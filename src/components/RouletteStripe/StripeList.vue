@@ -1,48 +1,37 @@
 <template>
   <ul class="roulette-list">
-    <stripe-weapon v-for="weapon in getAwards" :weapon="weapon"></stripe-weapon>
+    <stripe-weapon v-for="weapon in getWeapons" :weapon="weapon"></stripe-weapon>
   </ul>
 </template>
 
 <script>
 import { useRouletteStore } from '@/stores/useRouletteStore';
+import { useLoadThings } from '@/helpers/useLoadThings.js';
 
 import StripeWeapon from './StripeWeapon.vue';
-
-import axios from 'axios';
 
 export default {
   components: { StripeWeapon },
   computed: {
-    getAwards() {
-      const store = useRouletteStore();
+    getWeapons() {
+      console.log('[getWeapons]');
 
-      console.log('[getAwards]');
+      const store = useRouletteStore();
 
       return store.awards;
     },
   },
-  methods: {
-    async loadAwards() {
-      const responce = await axios.post('http://localhost:3001/api/v1/getShuffledAwards', {
-        length: 32,
-      });
-      const { status, data } = responce;
-
-      if (status !== 200 || !data.ok) {
-        throw new Error({ ok: data.ok, error: 'Какая-то срака.' });
-      }
-
-      const parsedAwards = JSON.parse(data.data);
-
-      return { ok: true, data: parsedAwards };
-    },
-  },
   async mounted() {
     const store = useRouletteStore();
-    const awards = await this.loadAwards();
+    const things = await useLoadThings({
+      url: 'http://localhost:3001/api/v1/getShuffledAwards',
+      method: 'POST',
+      postData: {
+        length: 32,
+      },
+    });
 
-    awards.ok ? store.setAwards(awards.data) : console.log('Произошла ошибка во время загрузки данных.');
+    things && store.setAwards(things);
   },
 };
 </script>

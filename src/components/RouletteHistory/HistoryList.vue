@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     importWeapons() {
-      const weaponSprites = import.meta.glob('@/sprites/spectra/*.png');
+      const weaponSprites = import.meta.glob('@/assets/cases/spectra/*.png');
 
       this.weapons = Object.keys(weaponSprites);
     },
