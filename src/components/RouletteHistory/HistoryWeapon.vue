@@ -1,6 +1,16 @@
 <template>
-  <li class="history-item rarity-red">
-    <img :src="weapon" alt="item" />
+  <li
+    class="history-item"
+    :class="{
+      'rarity-white': weapon.rarity === 'white',
+      'rarity-green': weapon.rarity === 'green',
+      'rarity-blue': weapon.rarity === 'blue',
+      'rarity-purpure': weapon.rarity === 'purpure',
+      'rarity-red': weapon.rarity === 'red',
+      'rarity-gold': weapon.rarity === 'gold',
+    }"
+  >
+    <img :src="`http://localhost:5173/src/assets/cases/spectra/${weapon.sprite}`" alt="item" />
   </li>
 </template>
 

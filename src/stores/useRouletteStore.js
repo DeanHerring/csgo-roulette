@@ -9,6 +9,7 @@ export const useRouletteStore = defineStore('roulette', {
     isDisplayAward: false,
     award: null,
     countSpins: 0,
+    historyItems: [],
   }),
   getters: {
     isFirstSpin: (state) => state.countSpins === 0,
@@ -29,6 +30,14 @@ export const useRouletteStore = defineStore('roulette', {
     },
 
     // Methods
+    addToHistory(weapon) {
+      if (weapon && this.historyItems.length < 32) {
+        this.historyItems.push({ id: weapon.id, rarity: weapon.rarity, sprite: weapon.sprite });
+      } else {
+        this.historyItems.shift();
+        this.historyItems.push({ id: weapon.id, rarity: weapon.rarity, sprite: weapon.sprite });
+      }
+    },
     incrementSpin() {
       this.countSpins++;
     },

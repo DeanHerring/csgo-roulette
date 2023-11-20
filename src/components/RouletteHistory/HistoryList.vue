@@ -2,11 +2,13 @@
   <ul class="history-list">
     <history-header></history-header>
 
-    <history-weapon v-for="weapon in weapons" :weapon="weapon"></history-weapon>
+    <history-weapon v-for="weapon in getHistory" :weapon="weapon"></history-weapon>
   </ul>
 </template>
 
 <script>
+import { useRouletteStore } from '@/stores/useRouletteStore.js';
+
 import HistoryWeapon from './HistoryWeapon.vue';
 import HistoryHeader from './HistoryHeader.vue';
 
@@ -15,17 +17,26 @@ export default {
   data() {
     return {
       weapons: [],
+      history: [],
     };
   },
+  computed: {
+    getHistory() {
+      const store = useRouletteStore();
+      const copyHistory = [...store.historyItems];
+
+      return copyHistory.reverse();
+    },
+  },
   methods: {
-    importWeapons() {
+    importWeaponSprites() {
       const weaponSprites = import.meta.glob('@/assets/cases/spectra/*.png');
 
       this.weapons = Object.keys(weaponSprites);
     },
   },
   mounted() {
-    this.importWeapons();
+    this.importWeaponSprites();
   },
 };
 </script>

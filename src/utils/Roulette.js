@@ -25,9 +25,16 @@ const start = () => {
   });
 };
 
-const end = () => {
+const getAward = () => {
   const store = useRouletteStore();
   const award = store.awards[28];
+
+  return award;
+};
+
+const end = () => {
+  const store = useRouletteStore();
+  const award = getAward();
 
   store.setAward(award.price);
 };
@@ -48,6 +55,8 @@ const afterSpin = ({ ref, result }) => {
   const store = useRouletteStore();
 
   if (result.isEnd) {
+    const award = getAward();
+
     setTimeout(() => {
       ref.disabled = false;
     }, DELAY_BEFORE_NEXT_SPIN * 1000);
@@ -55,6 +64,7 @@ const afterSpin = ({ ref, result }) => {
     playSound(endSound);
     end();
 
+    store.addToHistory(award);
     store.setDisplayAward(true);
   }
 };

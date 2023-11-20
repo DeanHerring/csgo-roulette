@@ -65,6 +65,9 @@ export default {
     &-red {
       background: linear-gradient(-210deg, $blue-1 50%, $red-1 150%);
     }
+    &-gold {
+      background: linear-gradient(-210deg, $blue-1 50%, $yellow-1 150%);
+    }
   }
   &:first-child {
     border-radius: 5px 0 0 5px;
