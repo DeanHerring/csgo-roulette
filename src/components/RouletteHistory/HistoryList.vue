@@ -1,6 +1,5 @@
 <template>
   <TransitionGroup name="history-list" tag="ul">
-    <history-header></history-header>
     <history-weapon v-for="weapon in getHistory" :key="weapon" :weapon="weapon"></history-weapon>
   </TransitionGroup>
 </template>
@@ -9,10 +8,9 @@
 import { useRouletteStore } from '@/stores/useRouletteStore.js';
 
 import HistoryWeapon from './HistoryWeapon.vue';
-import HistoryHeader from './HistoryHeader.vue';
 
 export default {
-  components: { HistoryWeapon, HistoryHeader },
+  components: { HistoryWeapon },
   data() {
     return {
       weapons: [],
@@ -53,11 +51,10 @@ ul {
 .history-list-enter-active,
 .history-list-leave-active {
   margin-left: 0;
-  transition: all 0.15s linear;
+  transition: all 0.5s ease;
 }
 .history-list-enter-from,
 .history-list-leave-to {
-  // transform: translateX(-$history-card-width);
   margin-left: -$history-card-width;
 }
 </style>

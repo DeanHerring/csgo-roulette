@@ -6,13 +6,12 @@ import endSound from '@/assets/sounds/end.mp3';
 import spinSound from '@/assets/sounds/spin.mp3';
 
 const CARD_WIDTH = 260;
-const DURATION = 1;
-const DELAY_BEFORE_NEXT_SPIN = 0;
+const DURATION = 4.4;
+const DELAY_BEFORE_NEXT_SPIN = 1.2;
 
 const playSound = (sound) => {
   const audio = new Audio(sound);
 
-  audio.volume = 0.0;
   audio.play();
 };
 
