@@ -1,9 +1,8 @@
 <template>
-  <ul class="history-list">
+  <TransitionGroup name="history-list" tag="ul">
     <history-header></history-header>
-
-    <history-weapon v-for="weapon in getHistory" :weapon="weapon"></history-weapon>
-  </ul>
+    <history-weapon v-for="weapon in getHistory" :key="weapon" :weapon="weapon"></history-weapon>
+  </TransitionGroup>
 </template>
 
 <script>
@@ -17,7 +16,6 @@ export default {
   data() {
     return {
       weapons: [],
-      history: [],
     };
   },
   computed: {
@@ -44,10 +42,22 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/vars.scss';
 
-.history-list {
+ul {
   display: flex;
   width: 9999px;
   height: 100%;
   overflow: hidden;
+  background-color: $blue-1;
+}
+
+.history-list-enter-active,
+.history-list-leave-active {
+  margin-left: 0;
+  transition: all 0.15s linear;
+}
+.history-list-enter-from,
+.history-list-leave-to {
+  // transform: translateX(-$history-card-width);
+  margin-left: -$history-card-width;
 }
 </style>

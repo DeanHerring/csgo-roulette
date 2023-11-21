@@ -16,8 +16,10 @@ export default {};
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $blue-1;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+  background-color: $black-1;
+  // clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
   color: $white-2;
+  position: relative;
+  z-index: 10;
 }
 </style>

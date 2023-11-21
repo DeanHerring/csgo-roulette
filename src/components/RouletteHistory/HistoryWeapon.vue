@@ -9,6 +9,7 @@
       'rarity-red': weapon.rarity === 'red',
       'rarity-gold': weapon.rarity === 'gold',
     }"
+    ref="historyItem"
   >
     <img :src="`http://localhost:5173/src/assets/cases/spectra/${weapon.sprite}`" alt="item" />
   </li>
@@ -29,12 +30,7 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: $blue-1;
-  clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
-  margin-left: -22px;
-  &:first-child {
-    clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
-    color: #fff;
-  }
+  // clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
   &.rarity {
     &-white {
       background: linear-gradient(180deg, $blue-1 60%, $white-1 175%);
