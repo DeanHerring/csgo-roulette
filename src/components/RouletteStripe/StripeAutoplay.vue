@@ -1,6 +1,6 @@
 <template>
   <div class="roulette-spin">
-    <button @click="play" ref="spin">Spin</button>
+    <button @click="autoplay" ref="autoplay">Autoplay</button>
   </div>
 </template>
 
@@ -10,11 +10,10 @@ import { Utils } from '@/utils/Utils.js';
 
 export default {
   methods: {
-    play() {
+    autoplay() {
       const store = useRouletteStore();
-      const isFirstSpin = store.isFirstSpin;
 
-      isFirstSpin ? Utils.roulette.spin() : Utils.roulette.respin();
+      Utils.roulette.autoplay();
 
       store.incrementSpin();
     },
@@ -22,7 +21,7 @@ export default {
   mounted() {
     const store = useRouletteStore();
 
-    store.setSpinRef(this.$refs.spin);
+    store.setAutoplayRef(this.$refs.autoplay);
   },
 };
 </script>
@@ -40,6 +39,7 @@ export default {
     border-radius: 5px;
     padding: 10px 20px;
     transition: all 0.2s;
+    margin-left: 10px;
     cursor: pointer;
     &:disabled {
       background-color: darkgray;

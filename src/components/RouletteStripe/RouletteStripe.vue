@@ -9,7 +9,10 @@
       </div>
     </div>
 
-    <stripe-spin></stripe-spin>
+    <div class="roulette-actions">
+      <stripe-spin></stripe-spin>
+      <stripe-autoplay></stripe-autoplay>
+    </div>
   </div>
 </template>
 
@@ -18,11 +21,12 @@ import StripeHeader from './StripeHeader.vue';
 import StripeSpin from './StripeSpin.vue';
 import StripeArrows from './StripeArrows.vue';
 import StripeList from './StripeList.vue';
+import StripeAutoplay from './StripeAutoplay.vue';
 
 import { useRouletteStore } from '@/stores/useRouletteStore.js';
 
 export default {
-  components: { StripeHeader, StripeSpin, StripeArrows, StripeList },
+  components: { StripeHeader, StripeSpin, StripeArrows, StripeList, StripeAutoplay },
   mounted() {
     const store = useRouletteStore();
 
@@ -58,6 +62,11 @@ export default {
         box-shadow: inset 0 0 25px 5px $blue-3;
       }
     }
+  }
+  &-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
   }
 }
 </style>

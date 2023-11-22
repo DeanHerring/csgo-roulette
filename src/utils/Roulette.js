@@ -12,6 +12,7 @@ const DELAY_BEFORE_NEXT_SPIN = 1.2;
 const playSound = (sound) => {
   const audio = new Audio(sound);
 
+  audio.volume = 0.1;
   audio.play();
 };
 
@@ -51,14 +52,15 @@ const getWeapons = async () => {
   return things && things;
 };
 
-const afterSpin = ({ ref, result }) => {
+const afterSpin = (result) => {
   const store = useRouletteStore();
 
   if (result.isEnd) {
     const award = getAward();
 
     setTimeout(() => {
-      ref.disabled = false;
+      store.spinRef.disabled = false;
+      store.autoplayRef.disabled = false;
     }, DELAY_BEFORE_NEXT_SPIN * 1000);
 
     playSound(endSound);
@@ -69,14 +71,22 @@ const afterSpin = ({ ref, result }) => {
   }
 };
 
-const spin = (ref) => {
+const spin = () => {
+  const store = useRouletteStore();
+
+  store.spinRef.disabled = true;
+  store.autoplayRef.disabled = true;
+
   playSound(spinSound);
-  start().then((result) => afterSpin({ ref, result }));
+  start().then((result) => afterSpin(result));
 };
 
-const respin = async (ref) => {
+const respin = async () => {
   const store = useRouletteStore();
   const weapons = await getWeapons();
+
+  store.spinRef.disabled = true;
+  store.autoplayRef.disabled = true;
 
   store.setDisplayAward(false);
   store.trimStripe();
@@ -86,13 +96,72 @@ const respin = async (ref) => {
   playSound(spinSound);
 
   setTimeout(() => {
-    start().then((result) => afterSpin({ ref, result }));
+    start().then((result) => afterSpin(result));
   }, 100);
+};
+
+const autoplay = async () => {
+  const store = useRouletteStore();
+
+  console.log('asdhjabsd');
+
+  store.spinRef.disabled = true;
+  store.autoplayRef.disabled = true;
+
+  if (store.isFirstSpin) {
+    playSound(spinSound);
+
+    start().then((result) => {
+      if (result.isEnd) {
+        const award = getAward();
+
+        playSound(endSound);
+        end();
+
+        console.log(store);
+
+        store.addToHistory(award);
+        store.setDisplayAward(true);
+
+        setTimeout(() => {
+          autoplay();
+        }, DELAY_BEFORE_NEXT_SPIN * 1000);
+      }
+    });
+  } else {
+    const weapons = await getWeapons();
+
+    store.setDisplayAward(false);
+    store.trimStripe();
+    store.updateStripe(weapons);
+    store.animateClear();
+
+    setTimeout(() => {
+      playSound(spinSound);
+
+      start().then((result) => {
+        if (result.isEnd) {
+          const award = getAward();
+
+          playSound(endSound);
+          end();
+
+          store.addToHistory(award);
+          store.setDisplayAward(true);
+
+          setTimeout(() => {
+            autoplay();
+          }, DELAY_BEFORE_NEXT_SPIN * 1000);
+        }
+      });
+    }, 100);
+  }
 };
 
 const Roulette = {
   spin,
   respin,
+  autoplay,
 };
 
 export default Roulette;

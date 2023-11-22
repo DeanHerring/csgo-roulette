@@ -10,6 +10,8 @@ export const useRouletteStore = defineStore('roulette', {
     award: null,
     countSpins: 0,
     historyItems: [],
+    spinRef: null,
+    autoplayRef: null,
   }),
   getters: {
     isFirstSpin: (state) => state.countSpins === 0,
@@ -27,6 +29,12 @@ export const useRouletteStore = defineStore('roulette', {
     },
     setDisplayAward(state) {
       this.isDisplayAward = state;
+    },
+    setSpinRef(ref) {
+      this.spinRef = ref;
+    },
+    setAutoplayRef(ref) {
+      this.autoplayRef = ref;
     },
 
     // Methods
